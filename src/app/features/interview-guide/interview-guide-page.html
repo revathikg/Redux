@@ -1,0 +1,93 @@
+<section class="guide-heading">
+  <p class="eyebrow">Quick revision</p>
+  <h1>NgRx interview guide</h1>
+  <p>Use this page as a command cheat sheet and a walkthrough of the task-board architecture.</p>
+</section>
+
+<section class="guide-section">
+  <h2>Essential CLI commands</h2>
+  <p>From the workspace root, these commands install NgRx, start the app, and generate common Angular files.</p>
+  <pre><code># Add the NgRx packages used in this sample (Angular 21 / NgRx 21)
+npm install &#64;ngrx/store&#64;^21 &#64;ngrx/effects&#64;^21 &#64;ngrx/entity&#64;^21 &#64;ngrx/router-store&#64;^21 &#64;ngrx/store-devtools&#64;^21 &#64;ngrx/signals&#64;^21
+
+# Start the app and build it
+npm start
+npm run build
+
+# Run unit tests
+npm test
+
+# Generate an Angular feature component and service
+ng generate component features/example
+ng generate service features/example/data-access/example-api</code></pre>
+</section>
+
+<section class="guide-section">
+  <h2>State flow in this project</h2>
+  <ol class="flow-list">
+    <li><strong>Component</strong><span>Dispatches a descriptive intent action, such as Task Creation Requested.</span></li>
+    <li><strong>Effect</strong><span>Calls the demo API and maps success or failure to a serializable action.</span></li>
+    <li><strong>Reducer</strong><span>Uses Entity Adapter to immutably update normalized task state.</span></li>
+    <li><strong>Selector</strong><span>Derives visible tasks and progress without storing duplicate computed data.</span></li>
+    <li><strong>Component</strong><span>Reads selector values as signals with Store.selectSignal().</span></li>
+  </ol>
+</section>
+
+<section class="guide-section">
+  <h2>Concepts demonstrated</h2>
+  <div class="concept-grid">
+    <article>
+      <h3>Store and feature state</h3>
+      <p>One-way data flow, feature keys, immutable reducers, loading and error state, and strict runtime checks.</p>
+    </article>
+    <article>
+      <h3>Actions and effects</h3>
+      <p>Intent/success/failure actions, injectable effects, RxJS flattening operators, and error mapping.</p>
+    </article>
+    <article>
+      <h3>Entity and selectors</h3>
+      <p>Normalized entity state, adapter CRUD helpers, memoized filtering, and derived statistics.</p>
+    </article>
+    <article>
+      <h3>Router Store and DevTools</h3>
+      <p>Serializable router state, action inspection, state diffs, and time-travel debugging.</p>
+    </article>
+    <article>
+      <h3>SignalStore</h3>
+      <p>Signal-first state, computed values, methods, immutable updates, and component-scoped providers.</p>
+    </article>
+  </div>
+</section>
+
+<section class="guide-section">
+  <h2>Questions to practice out loud</h2>
+  <details>
+    <summary>What problem does NgRx solve, and when would you avoid it?</summary>
+    <p>It makes shared state transitions explicit and predictable. For isolated, short-lived UI state, a local signal or component state is often simpler.</p>
+  </details>
+  <details>
+    <summary>Why keep reducers pure and immutable?</summary>
+    <p>Pure immutable transitions are deterministic, easy to test, compatible with memoized selectors, and observable by DevTools.</p>
+  </details>
+  <details>
+    <summary>How do an effect and a reducer differ?</summary>
+    <p>A reducer synchronously calculates the next state. An effect handles side effects such as HTTP calls and dispatches a follow-up action.</p>
+  </details>
+  <details>
+    <summary>How do you choose an RxJS flattening operator in an effect?</summary>
+    <p>Choose based on concurrency: switchMap cancels stale work, concatMap queues, mergeMap allows concurrency, and exhaustMap ignores new triggers while work is active.</p>
+  </details>
+  <details>
+    <summary>Why use Entity Adapter and selectors?</summary>
+    <p>Entity Adapter standardizes normalized collection updates. Selectors encapsulate and memoize derived reads so components do not duplicate state logic.</p>
+  </details>
+  <details>
+    <summary>What belongs in the store?</summary>
+    <p>Serializable state that benefits from sharing or predictable transitions. Avoid services, subscriptions, class instances, and values that can be derived.</p>
+  </details>
+</section>
+
+<aside class="guide-callout">
+  <strong>Interview tip</strong>
+  <span>Explain the trade-off first, then trace one real action in this app from dispatch through the effect and reducer to the selector.</span>
+</aside>

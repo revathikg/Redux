@@ -1,0 +1,108 @@
+<section class="page-heading">
+  <div>
+    <p class="eyebrow">Hands-on NgRx example</p>
+    <h1>Interview prep task board</h1>
+    <p class="subtitle">Follow actions from the UI through effects and reducers into a normalized store.</p>
+  </div>
+  <span class="store-badge"><span aria-hidden="true">●</span> Store connected</span>
+</section>
+
+<section class="stats" aria-label="Task progress">
+  <article class="stat-card">
+    <span class="stat-label">Total topics</span>
+    <strong>{{ totalCount() }}</strong>
+  </article>
+  <article class="stat-card">
+    <span class="stat-label">Completed</span>
+    <strong>{{ completedCount() }}</strong>
+  </article>
+  <article class="stat-card progress-card">
+    <span class="stat-label">Progress</span>
+    <strong>{{ completionPercentage() }}%</strong>
+    <div class="progress-track" role="progressbar"
+      [attr.aria-valuenow]="completionPercentage()" aria-valuemin="0" aria-valuemax="100">
+      <span [style.width.%]="completionPercentage()"></span>
+    </div>
+  </article>
+</section>
+
+<section class="board">
+  <div class="board-toolbar">
+    <div>
+      <h2>Topics to practice</h2>
+      <p class="muted">Create, search, filter, complete, or remove a topic.</p>
+    </div>
+    <label class="search">
+      <span class="visually-hidden">Search topics</span>
+      <span aria-hidden="true">⌕</span>
+      <input type="search" [value]="searchTerm()" (input)="updateSearch($event)" placeholder="Search topics">
+    </label>
+  </div>
+
+  <div class="filter-row" aria-label="Filter tasks">
+    @for (item of filters; track item.value) {
+      <button type="button" class="filter-button" [class.selected]="filter() === item.value"
+        [attr.aria-pressed]="filter() === item.value" (click)="setFilter(item.value)">
+        {{ item.label }}
+      </button>
+    }
+  </div>
+
+  <form class="create-form" #taskForm="ngForm" (ngSubmit)="addTask(taskForm)">
+    <div class="form-fields">
+      <label>
+        <span>Topic</span>
+        <input name="title" ngModel required maxlength="80" placeholder="e.g. Explain selector memoization">
+      </label>
+      <label>
+        <span>What to practice</span>
+        <input name="description" ngModel maxlength="180" placeholder="Add a short note (optional)">
+      </label>
+    </div>
+    <button class="primary-button" type="submit" [disabled]="taskForm.invalid || loading()">Add topic</button>
+  </form>
+
+  @if (error()) {
+    <p class="error-message" role="alert">{{ error() }}</p>
+  }
+
+  @if (loading()) {
+    <p class="loading-message" role="status">Syncing tasks with the demo API…</p>
+  }
+
+  <div class="task-list">
+    @for (task of tasks(); track task.id) {
+      <article class="task-card">
+        <div class="task-content">
+          <div class="task-title-row">
+            <h3>{{ task.title }}</h3>
+            <span class="status" [class.status-pending]="task.status === 'pending'"
+              [class.status-progress]="task.status === 'in-progress'"
+              [class.status-done]="task.status === 'done'">
+              {{ task.status === 'in-progress' ? 'In progress' : task.status }}
+            </span>
+          </div>
+          <p>{{ task.description || 'No notes added.' }}</p>
+        </div>
+        <div class="task-actions">
+          <button type="button" class="text-button" (click)="markDone(task)"
+            [disabled]="loading()">
+            {{ task.status === 'done' ? 'Reopen' : 'Mark done' }}
+          </button>
+          <button type="button" class="icon-button" [attr.aria-label]="'Delete ' + task.title"
+            (click)="deleteTask(task.id)" [disabled]="loading()">×</button>
+        </div>
+      </article>
+    } @empty {
+      <div class="empty-state">
+        <strong>No topics match.</strong>
+        <span>Try another filter or add a new topic above.</span>
+      </div>
+    }
+  </div>
+</section>
+
+<aside class="learning-note">
+  <strong>Trace it in Redux DevTools</strong>
+  <span>Open the DevTools extension, dispatch an action, then inspect the state diff and time-travel history.</span>
+</aside>

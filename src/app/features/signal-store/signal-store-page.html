@@ -1,0 +1,29 @@
+<section class="signal-page">
+  <p class="eyebrow">NgRx Signals</p>
+  <h1>SignalStore counter</h1>
+  <p class="intro">
+    SignalStore is a signal-first option for local or feature state. This store is scoped to this route component,
+    so leaving the page resets the counter.
+  </p>
+
+  <article class="counter-card">
+    <span class="counter-label">Current count</span>
+    <strong class="count">{{ counter.count() }}</strong>
+    <span class="derived">Derived value (count × 2): <strong>{{ counter.doubled() }}</strong></span>
+    <div class="counter-actions">
+      <button type="button" class="secondary-button" (click)="counter.decrement()">− Decrement</button>
+      <button type="button" class="primary-button" (click)="counter.increment()">Increment +</button>
+    </div>
+    <button type="button" class="reset-button" (click)="counter.reset()">Reset counter</button>
+  </article>
+
+  <section class="explanation">
+    <h2>What this demonstrates</h2>
+    <ul>
+      <li><code>withState</code> declares the initial count.</li>
+      <li><code>withComputed</code> derives a memoized value from the count signal.</li>
+      <li><code>withMethods</code> exposes state transitions using immutable <code>patchState</code>.</li>
+      <li>Component-level providers scope the store instance to this feature.</li>
+    </ul>
+  </section>
+</section>

@@ -1,0 +1,25 @@
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" routerLink="/" aria-label="NgRx Interview Lab home">
+      <span class="brand-mark">N</span>
+      <span>
+        <strong>NgRx Interview Lab</strong>
+        <small>Learn by building</small>
+      </span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        >Task board</a
+      >
+      <a routerLink="/interview-guide" routerLinkActive="active">Interview guide</a>
+      <a routerLink="/signal-store" routerLinkActive="active">SignalStore</a>
+    </nav>
+  </header>
+
+  <main>
+    <router-outlet />
+  </main>
+
+  <footer>Angular + NgRx practice project</footer>
+</div>

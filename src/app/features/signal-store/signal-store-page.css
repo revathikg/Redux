@@ -1,0 +1,121 @@
+.signal-page {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin-bottom: 0.4rem;
+  color: #267c69;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  color: #14213a;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  letter-spacing: -0.04em;
+}
+
+.intro {
+  color: #69778b;
+  line-height: 1.6;
+}
+
+.counter-card,
+.explanation {
+  margin-top: 1.25rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 1px solid #e4e9f0;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 8px 30px rgb(26 47 77 / 4%);
+}
+
+.counter-card {
+  display: grid;
+  justify-items: center;
+  gap: 0.75rem;
+}
+
+.counter-label,
+.derived {
+  color: #69778b;
+  font-size: 0.9rem;
+}
+
+.count {
+  color: #14213a;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.derived strong {
+  color: #267c69;
+}
+
+.counter-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.primary-button,
+.secondary-button,
+.reset-button {
+  padding: 0.7rem 0.95rem;
+  border-radius: 0.6rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-button {
+  border: 0;
+  color: #fff;
+  background: #18785e;
+}
+
+.secondary-button {
+  border: 1px solid #dfe5ec;
+  color: #263650;
+  background: #fff;
+}
+
+.reset-button {
+  padding: 0.3rem 0.5rem;
+  border: 0;
+  color: #69778b;
+  background: transparent;
+  font-size: 0.85rem;
+}
+
+.explanation h2 {
+  color: #1d2b43;
+  font-size: 1.1rem;
+}
+
+.explanation ul {
+  display: grid;
+  gap: 0.65rem;
+  margin-bottom: 0;
+  padding-left: 1.25rem;
+  color: #58677d;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+code {
+  padding: 0.12rem 0.3rem;
+  border-radius: 0.3rem;
+  color: #246c56;
+  background: #eef8f3;
+}
